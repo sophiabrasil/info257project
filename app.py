@@ -109,7 +109,7 @@ import sys
 @app.route("/")
 def view_all_applications():
 	
-	con = lite.connect("applications.db")
+	con = lite.connect("info257app.db")
 	cur = con.cursor()
 	cur.execute("select university, major, degree, decision, decision_method, ug_gpa, gre_verbal, gre_quant, gre_writing from applications")
 	rows = cur.fetchall()
@@ -133,7 +133,7 @@ def add_applications():
 		gre_quant = request.form["gre_quant"]
 		gre_writing = request.form["gre_writing"]
 
-		con = lite.connect("applications.db")
+		con = lite.connect("info257app.db")
 		with con:
 			cur = con.cursor()
 			cur.execute("insert into applications (university, major, degree, decision, decision_method, ug_gpa, gre_verbal, gre_quant, gre_writing) values ('{}', '{}')".format(university, major, degree, decision, decision_method, ug_gpa, gre_verbal, gre_quant, gre_writing))
@@ -144,7 +144,7 @@ def add_applications():
 @app.route("/applications/<int:id>")
 def get_applications(id):
 
-	con = lite.connect("applications.db")
+	con = lite.connect("info257app.db")
 	cur = con.cursor()
 	cur.execute("select university, major, degree, decision, decision_method, ug_gpa, gre_verbal, gre_quant, gre_writing from applications where id = " + str(id))
 	rows = cur.fetchall()
@@ -155,17 +155,10 @@ if __name__ == "__main__":
     app.run()
 
 # careers
-    
-from flask import Flask, render_template, request, redirect
-app = Flask(__name__)
-
-import sqlite3 as lite
-import sys
- 
 @app.route("/")
 def view_all_careers():
 	
-	con = lite.connect("careers.db")
+	con = lite.connect("info257app.db")
 	cur = con.cursor()
 	cur.execute("select name, salary, growth, employment from careers")
 	rows = cur.fetchall()
@@ -184,7 +177,7 @@ def add_careers():
 		growth = request.form["growth"]
 		employment = request.form["employment"]
 
-		con = lite.connect("careers.db")
+		con = lite.connect("info257app.db")
 		with con:
 			cur = con.cursor()
 			cur.execute("insert into careers (name, salary, growth, employment) values ('{}', '{}')".format(name, salary, growth, employment))
@@ -195,7 +188,7 @@ def add_careers():
 @app.route("/careers/<int:id>")
 def get_careers(id):
 
-	con = lite.connect("careers.db")
+	con = lite.connect("info257app.db")
 	cur = con.cursor()
 	cur.execute("select name, salary, growth, employment from careers where id = " + str(id))
 	rows = cur.fetchall()
