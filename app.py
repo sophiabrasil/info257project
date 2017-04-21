@@ -245,7 +245,7 @@ def get_cities(id):
 @app.route("/")
 def view_all_majorcareers():
 	
-	con = lite.connect("majorcareers.db")
+	con = lite.connect("info257app.db")
 	cur = con.cursor()
 	cur.execute("select major, career from majorcareers")
 	rows = cur.fetchall()
@@ -262,7 +262,7 @@ def add_majorcareers():
 		major = request.form["major"]
 		career = request.form["career"]
 
-		con = lite.connect("majorcareers.db")
+		con = lite.connect("info257app.db")
 		with con:
 			cur = con.cursor()
 			cur.execute("insert into majorcareers (major, career) values ('{}', '{}')".format(major, career))
@@ -273,7 +273,7 @@ def add_majorcareers():
 @app.route("/majorcareers/<int:id>")
 def get_majorcareers(id):
 
-	con = lite.connect("majorcareers.db")
+	con = lite.connect("info257app.db")
 	cur = con.cursor()
 	cur.execute("select id major, career from majorcareers where id = " + str(id))
 	rows = cur.fetchall()
@@ -285,7 +285,7 @@ def get_majorcareers(id):
 @app.route("/")
 def view_all_majors():
 	
-	con = lite.connect("majors.db")
+	con = lite.connect("info257app.db")
 	cur = con.cursor()
 	cur.execute("select name, description, average_salary, expected_growth, no_of_students, no_of_offering_schools from majors")
 	rows = cur.fetchall()
@@ -306,7 +306,7 @@ def add_majors():
 		no_of_students = request.form["no_of_students"]
 		no_of_offering_schools = request.form["no_of_offering_schools"]
 
-		con = lite.connect("majors.db")
+		con = lite.connect("info257app.db")
 		with con:
 			cur = con.cursor()
 			cur.execute("insert into Majors (name, description, average_salary, expected_growth, no_of_students, no_of_offering_schools) values ('{}', '{}')".format(name, description, average_salary, expected_growth, no_of_students, no_of_offering_schools))
@@ -317,7 +317,7 @@ def add_majors():
 @app.route("/majors/<int:id>")
 def get_majors(id):
 
-	con = lite.connect("majors.db")
+	con = lite.connect("info257app.db")
 	cur = con.cursor()
 	cur.execute("select id name, description, average_salary, expected_growth, no_of_students, no_of_offering_schools from majors where id = " + str(id))
 	rows = cur.fetchall()
@@ -374,7 +374,7 @@ def get_universities(id):
 @app.route("/")
 def view_all_universitymajors():
 	
-	con = lite.connect("universitymajors.db")
+	con = lite.connect("info257app.db")
 	cur = con.cursor()
 	cur.execute("select university, major from universitymajors")
 	rows = cur.fetchall()
@@ -391,7 +391,7 @@ def add_universitymajors():
 		university = request.form["university"]
 		major = request.form["major"]
 
-		con = lite.connect("universitymajors.db")
+		con = lite.connect("info257app.db")
 		with con:
 			cur = con.cursor()
 			cur.execute("insert into universitymajors (university, major) values ('{}', '{}')".format(university, major))
@@ -402,7 +402,7 @@ def add_universitymajors():
 @app.route("/universitymajors/<int:id>")
 def get_universitymajors(id):
 
-	con = lite.connect("universitymajors.db")
+	con = lite.connect("info257app.db")
 	cur = con.cursor()
 	cur.execute("select id university, major from universitymajors where id = " + str(id))
 	rows = cur.fetchall()
