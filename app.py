@@ -237,7 +237,7 @@ def get_cities(id):
 	cur = con.cursor()
 	cur.execute("select state, city, summer_temperature, winter_temperature from cities where id = " + str(id))
 	rows = cur.fetchall()
-
+	column_names = ["state", "city", "summer temperature", "winter temperature"]
 	return render_template("viewcities.html", **locals())
 
 # majorcareers
@@ -366,7 +366,7 @@ def get_universities(id):
 	cur = con.cursor()
 	cur.execute("select name, ug_admissions_rate, size, in_state_tuition, out_state_tuition, state, city from universities where id = " + str(id))
 	rows = cur.fetchall()
-
+	column_names = ["name", "UG admissions rate", "size", "in state tuition", "out of state tuition", "state", "city"]
 	return render_template("viewuniversities.html", **locals())
 
 # universitymajors
