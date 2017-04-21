@@ -62,12 +62,22 @@ Table Name: applications
 from flask import Flask
 from flask import render_template
 import os
+import sqlite3 as lite
+import sys
 from os import path
 app = Flask(__name__)
 
 @app.route('/')
-def home():
-    return render_template("home.html")
+def view_all_books():
+	
+	con = lite.connect("info257app.db")
+	cur = con.cursor()
+	cur.execute("select * from cities")
+	rows = cur.fetchall()
+	print(rows)
+	return render_template("home.html")
+# def home():
+#     return render_template("home.html")
 
 @app.route('/majors/<int:id>')
 def get_major(id):
