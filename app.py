@@ -148,7 +148,7 @@ def get_applications(id):
 	cur = con.cursor()
 	cur.execute("select university, major, degree, decision, decision_method, ug_gpa, gre_verbal, gre_quant, gre_writing from applications where id = " + str(id))
 	rows = cur.fetchall()
-
+	column_names = ["University","Major","Degree","Decision","Decision_Method","UG_GPA","GRE_Verbal","GRE_Quant","GRE_Writing"]
 	return render_template("viewapplications.html", **locals())
 
 if __name__ == "__main__":
@@ -192,7 +192,7 @@ def get_careers(id):
 	cur = con.cursor()
 	cur.execute("select name, salary, growth, employment from careers where id = " + str(id))
 	rows = cur.fetchall()
-
+	column_names = ["Name","Salary","Growth","Employment"]
 	return render_template("viewcareers.html", **locals())
 
 if __name__ == "__main__":
