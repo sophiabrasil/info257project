@@ -1,3 +1,4 @@
+
 """ Table Name: universities
 (0, 'index', 'INTEGER', 0, None, 0)
 (1, 'name', 'TEXT', 0, None, 0)
@@ -96,3 +97,4 @@ for extra_dir in extra_dirs:
             if path.isfile(filename):
                 extra_files.append(filename)
 app.run(extra_files=extra_files)
+
