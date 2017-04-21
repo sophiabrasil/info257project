@@ -1,7 +1,7 @@
 @app.route("/")
 def view_all_cities():
 	
-	con = lite.connect("cities.db")
+	con = lite.connect("info257app.db")
 	cur = con.cursor()
 	cur.execute("select state, city, summer_temperature, winter_temperature")
 	rows = cur.fetchall()
@@ -20,7 +20,7 @@ def add_cities():
 		summer_temperature = request.form["summer_temperature"]
 		winter_temperature = request.form["winter_temperature"]
 
-		con = lite.connect("cities.db")
+		con = lite.connect("info257app.db")
 		with con:
 			cur = con.cursor()
 			cur.execute("insert into cities (state, city, summer_temperature, winter_temperature) values ('{}', '{}')".format(state, city, summer_temperature, winter_temperature)
@@ -31,7 +31,7 @@ def add_cities():
 @app.route("/cities/<int:id>")
 def get_cities(id):
 
-	con = lite.connect("cities.db")
+	con = lite.connect("info257app.db")
 	cur = con.cursor()
 	cur.execute("select state, city, summer_temperature, winter_temperature from cities where id = " + str(id))
 	rows = cur.fetchall()

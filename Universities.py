@@ -1,7 +1,7 @@
 @app.route("/")
 def view_all_universities():
 	
-	con = lite.connect("universities.db")
+	con = lite.connect("info257app.db")
 	cur = con.cursor()
 	cur.execute("select name, ug_admissions_rate, size, in_state_tuition, out_state_tuition, state, city from universities")
 	rows = cur.fetchall()
@@ -23,7 +23,7 @@ def add_universities():
 		city = request.form["city"]
 		state = request.form["state"]
 
-		con = lite.connect("universities.db")
+		con = lite.connect("info257app.db")
 		with con:
 			cur = con.cursor()
 			cur.execute("insert into universities (name, ug_admissions_rate, size, in_state_tuition, out_state_tuition, state, city) values ('{}', '{}')".format(name, ug_admissions_rate, size, in_state_tuition, out_state_tuition, state, city))
@@ -34,7 +34,7 @@ def add_universities():
 @app.route("/universities/<int:id>")
 def get_universities(id):
 
-	con = lite.connect("universities.db")
+	con = lite.connect("info257app.db")
 	cur = con.cursor()
 	cur.execute("select name, ug_admissions_rate, size, in_state_tuition, out_state_tuition, state, city from universities where id = " + str(id))
 	rows = cur.fetchall()
