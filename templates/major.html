@@ -1,0 +1,28 @@
+{% extends "entity_layout.html" %}
+{% block title %}Computer Science{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+	<div class="header">
+		<h3>Major</h3>
+		<h1>Computer Science</h1>
+	</div>
+	<div class="section">
+		{% for item in [["Description", "A great major for great people!"], ["Average Salary", 100000], ["Expected Growth", 0.2], ["Number of Students", 10000], ["Number of Students", 532]] %}
+        <b>{{ item[0] }}</b>: {{ item[1] }} <br>
+   		{% endfor %}
+	</div>
+	<div class="section">
+		<h2>Careers</h2>
+		{% for item in ["Software Developer", "UX Engineer", "Product Manager", "Project Manager", "Software Engineer", "Full-stack Developer"] %}
+        {{ item }} <br>
+   		{% endfor %}
+	</div>
+	<div class="section">
+		<h2>Universities</h2>
+		{% for item in [["wwww.google.com", "University of California, Berkeley"],["wwww.google.com",  "Stanford University"]] %}
+        <a href="{{ item[0] }} ">{{ item[1] }}</a><br>
+   		{% endfor %}
+	</div>
+{% endblock %}

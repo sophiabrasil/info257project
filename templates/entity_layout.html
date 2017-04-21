@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+  <head>
+    {% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/entity_layout.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,700,900" rel="stylesheet">
+    <title>{% block title %}{% endblock %} - My Webpage</title>
+    {% endblock %}
+  </head>
+  <body>
+    <div id="navbar">
+      <a href="/" id="logo"><img src="{{ url_for('static', filename='images/gradhat.png') }}"></a>
+      <div id="name">GladCap</div>
+      <div id="search">
+        <input type="text" placeholder="Search something...">
+        <img src="{{ url_for('static', filename='images/search.png') }}">
+      </div>
+    </div>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer">
+      {% block footer %}
+      &copy; Copyright 2017 by <a href="http://domain.invalid/">you</a>.
+      {% endblock %}
+    </div>
+  </body>
+</html>
