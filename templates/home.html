@@ -4,6 +4,11 @@
     <title>GradSearch</title>
 </head>
 <body>
-   
+	{% for row in rows %}
+		<tr>
+			<td>{{ row[1] }}</td>
+			<td>{{ row[2] }}</td>
+		</tr>
+	{% endfor %}
 </body>
 </html>

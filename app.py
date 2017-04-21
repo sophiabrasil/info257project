@@ -69,20 +69,20 @@ from os import path
 app = Flask(__name__)
 
 @app.route('/')
-def view_all_books():
-	
-	con = lite.connect("info257app.db")
-	cur = con.cursor()
-	cur.execute("select * from cities")
-	rows = cur.fetchall()
-	print(rows)
+def home():
 	return render_template("home.html")
 # def home():
 #     return render_template("home.html")
 
 @app.route('/majors/<int:id>')
 def get_major(id):
-    return render_template("major.html")
+	con = lite.connect("info257app.db")
+	cur = con.cursor()
+	cur.execute("select * from majors where name = 'Mathematics and Computer Science'")
+	rows = cur.fetchall()
+	column_names = ["ID", "Name", "Description", "Average Salary", "Expected Growth", "Number of Students", "Number of Offering Universities"]
+	print(rows)
+	return render_template("major.html", **locals())
 
 @app.errorhandler(404)
 def page_not_found(error):
