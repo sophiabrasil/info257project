@@ -98,3 +98,320 @@ for extra_dir in extra_dirs:
                 extra_files.append(filename)
 app.run(extra_files=extra_files)
 
+# applications
+
+from flask import Flask, render_template, request, redirect
+app = Flask(__name__)
+
+import sqlite3 as lite
+import sys
+ 
+@app.route("/")
+def view_all_applications():
+	
+	con = lite.connect("applications.db")
+	cur = con.cursor()
+	cur.execute("select university, major, degree, decision, decision_method, ug_gpa, gre_verbal, gre_quant, gre_writing from applications")
+	rows = cur.fetchall()
+
+	return render_template("index.html", **locals())
+
+@app.route("/addapplications", methods=["GET", "POST"])
+def add_applications():
+
+	if request.method == "GET":
+		return render_template("addapplications.html", **locals())
+
+	else:
+		university = request.form["university"]
+		major = request.form["major"]
+		degree = request.form["degree"]
+		decision = request.form["decision"]
+		decision_method = request.form["decision_method"]
+		ug_gpa = request.form["ug_gpa"]
+		gre_verbal = request.form["gre_verbal"]
+		gre_quant = request.form["gre_quant"]
+		gre_writing = request.form["gre_writing"]
+
+		con = lite.connect("applications.db")
+		with con:
+			cur = con.cursor()
+			cur.execute("insert into applications (university, major, degree, decision, decision_method, ug_gpa, gre_verbal, gre_quant, gre_writing) values ('{}', '{}')".format(university, major, degree, decision, decision_method, ug_gpa, gre_verbal, gre_quant, gre_writing))
+
+		return redirect("/")
+
+
+@app.route("/applications/<int:id>")
+def get_applications(id):
+
+	con = lite.connect("applications.db")
+	cur = con.cursor()
+	cur.execute("select university, major, degree, decision, decision_method, ug_gpa, gre_verbal, gre_quant, gre_writing from applications where id = " + str(id))
+	rows = cur.fetchall()
+
+	return render_template("viewapplications.html", **locals())
+
+if __name__ == "__main__":
+    app.run()
+
+# careers
+    
+from flask import Flask, render_template, request, redirect
+app = Flask(__name__)
+
+import sqlite3 as lite
+import sys
+ 
+@app.route("/")
+def view_all_careers():
+	
+	con = lite.connect("careers.db")
+	cur = con.cursor()
+	cur.execute("select name, salary, growth, employment from careers")
+	rows = cur.fetchall()
+
+	return render_template("index.html", **locals())
+
+@app.route("/addcareers", methods=["GET", "POST"])
+def add_careers():
+
+	if request.method == "GET":
+		return render_template("addcareers.html", **locals())
+
+	else:
+		name = request.form["name"]
+		salary = request.form["salary"]
+		growth = request.form["growth"]
+		employment = request.form["employment"]
+
+		con = lite.connect("careers.db")
+		with con:
+			cur = con.cursor()
+			cur.execute("insert into careers (name, salary, growth, employment) values ('{}', '{}')".format(name, salary, growth, employment))
+
+		return redirect("/")
+
+
+@app.route("/careers/<int:id>")
+def get_careers(id):
+
+	con = lite.connect("careers.db")
+	cur = con.cursor()
+	cur.execute("select name, salary, growth, employment from careers where id = " + str(id))
+	rows = cur.fetchall()
+
+	return render_template("viewcareers.html", **locals())
+
+if __name__ == "__main__":
+    app.run()
+
+# cities
+
+@app.route("/")
+def view_all_cities():
+	
+	con = lite.connect("cities.db")
+	cur = con.cursor()
+	cur.execute("select state, city, summer_temperature, winter_temperature")
+	rows = cur.fetchall()
+
+	return render_template("index.html", **locals())
+
+@app.route("/addcities", methods=["GET", "POST"])
+def add_cities():
+
+	if request.method == "GET":
+		return render_template("cities.html", **locals())
+
+	else:
+		state = request.form["city"]
+		city = request.form["state"]
+		summer_temperature = request.form["summer_temperature"]
+		winter_temperature = request.form["winter_temperature"]
+
+		con = lite.connect("cities.db")
+		with con:
+			cur = con.cursor()
+			cur.execute("insert into cities (state, city, summer_temperature, winter_temperature) values ('{}', '{}')".format(state, city, summer_temperature, winter_temperature)
+
+		return redirect("/")
+
+
+@app.route("/cities/<int:id>")
+def get_cities(id):
+
+	con = lite.connect("cities.db")
+	cur = con.cursor()
+	cur.execute("select state, city, summer_temperature, winter_temperature from cities where id = " + str(id))
+	rows = cur.fetchall()
+
+	return render_template("viewcities.html", **locals())
+
+# majorcareers
+
+@app.route("/")
+def view_all_majorcareers():
+	
+	con = lite.connect("majorcareers.db")
+	cur = con.cursor()
+	cur.execute("select major, career from majorcareers")
+	rows = cur.fetchall()
+
+	return render_template("index.html", **locals())
+
+@app.route("/addmajorcareers", methods=["GET", "POST"])
+def add_majorcareers():
+
+	if request.method == "GET":
+		return render_template("addmajorcareers.html", **locals())
+
+	else:
+		major = request.form["major"]
+		career = request.form["career"]
+
+		con = lite.connect("majorcareers.db")
+		with con:
+			cur = con.cursor()
+			cur.execute("insert into majorcareers (major, career) values ('{}', '{}')".format(major, career))
+
+		return redirect("/")
+
+
+@app.route("/majorcareers/<int:id>")
+def get_majorcareers(id):
+
+	con = lite.connect("majorcareers.db")
+	cur = con.cursor()
+	cur.execute("select id major, career from majorcareers where id = " + str(id))
+	rows = cur.fetchall()
+
+	return render_template("viewmajorcareers.html", **locals())
+                                    
+# majors
+
+@app.route("/")
+def view_all_majors():
+	
+	con = lite.connect("majors.db")
+	cur = con.cursor()
+	cur.execute("select name, description, average_salary, expected_growth, no_of_students, no_of_offering_schools from majors")
+	rows = cur.fetchall()
+
+	return render_template("index.html", **locals())
+
+@app.route("/addmajorcareers", methods=["GET", "POST"])
+def add_majors():
+
+	if request.method == "GET":
+		return render_template("addmajors.html", **locals())
+
+	else:
+		name = request.form["name"]
+		description = request.form["description"]
+		average_salary = request.form["average_salary"]
+		expected_growth = request.form["expected_growth"]
+		no_of_students = request.form["no_of_students"]
+		no_of_offering_schools = request.form["no_of_offering_schools"]
+
+		con = lite.connect("majors.db")
+		with con:
+			cur = con.cursor()
+			cur.execute("insert into Majors (name, description, average_salary, expected_growth, no_of_students, no_of_offering_schools) values ('{}', '{}')".format(name, description, average_salary, expected_growth, no_of_students, no_of_offering_schools))
+
+		return redirect("/")
+
+
+@app.route("/majors/<int:id>")
+def get_majors(id):
+
+	con = lite.connect("majors.db")
+	cur = con.cursor()
+	cur.execute("select id name, description, average_salary, expected_growth, no_of_students, no_of_offering_schools from majors where id = " + str(id))
+	rows = cur.fetchall()
+
+	return render_template("viewmajors.html", **locals())
+
+# universities
+
+@app.route("/")
+def view_all_universities():
+	
+	con = lite.connect("universities.db")
+	cur = con.cursor()
+	cur.execute("select name, ug_admissions_rate, size, in_state_tuition, out_state_tuition, state, city from universities")
+	rows = cur.fetchall()
+
+	return render_template("index.html", **locals())
+
+@app.route("/adduniversities", methods=["GET", "POST"])
+def add_universities():
+
+	if request.method == "GET":
+		return render_template("adduniversities.html", **locals())
+
+	else:
+		name = request.form["name"]
+		ug_admissions_rate = request.form["ug_admissions_rate"]
+		size = request.form["size"]
+		in_state_tuition = request.form["in_state_tuition"]
+		out_state_tuition = request.form["out_state_tuition"]
+		city = request.form["city"]
+		state = request.form["state"]
+
+		con = lite.connect("universities.db")
+		with con:
+			cur = con.cursor()
+			cur.execute("insert into universities (name, ug_admissions_rate, size, in_state_tuition, out_state_tuition, state, city) values ('{}', '{}')".format(name, ug_admissions_rate, size, in_state_tuition, out_state_tuition, state, city))
+
+		return redirect("/")
+
+
+@app.route("/universities/<int:id>")
+def get_universities(id):
+
+	con = lite.connect("universities.db")
+	cur = con.cursor()
+	cur.execute("select name, ug_admissions_rate, size, in_state_tuition, out_state_tuition, state, city from universities where id = " + str(id))
+	rows = cur.fetchall()
+
+	return render_template("viewuniversities.html", **locals())
+
+# universitymajors
+
+@app.route("/")
+def view_all_universitymajors():
+	
+	con = lite.connect("universitymajors.db")
+	cur = con.cursor()
+	cur.execute("select university, major from universitymajors")
+	rows = cur.fetchall()
+
+	return render_template("index.html", **locals())
+
+@app.route("/adduniversitymajors", methods=["GET", "POST"])
+def add_universitymajors():
+
+	if request.method == "GET":
+		return render_template("adduniversitymajors.html", **locals())
+
+	else:
+		university = request.form["university"]
+		major = request.form["major"]
+
+		con = lite.connect("universitymajors.db")
+		with con:
+			cur = con.cursor()
+			cur.execute("insert into universitymajors (university, major) values ('{}', '{}')".format(university, major))
+
+		return redirect("/")
+
+
+@app.route("/universitymajors/<int:id>")
+def get_universitymajors(id):
+
+	con = lite.connect("universitymajors.db")
+	cur = con.cursor()
+	cur.execute("select id university, major from universitymajors where id = " + str(id))
+	rows = cur.fetchall()
+
+	return render_template("viewuniversitymajors.html", **locals())                                   
