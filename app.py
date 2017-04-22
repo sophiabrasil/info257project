@@ -237,7 +237,7 @@ def get_cities(id):
 	cur = con.cursor()
 	cur.execute("select state, city, summer_temperature, winter_temperature from cities where id = " + str(id))
 	rows = cur.fetchall()
-	column_names = ["state", "city", "summer temperature", "winter temperature"]
+	column_names = ["State", "City", "Summer Temperature", "Winter Temperature"]
 	return render_template("viewcities.html", **locals())
 
 # majorcareers
